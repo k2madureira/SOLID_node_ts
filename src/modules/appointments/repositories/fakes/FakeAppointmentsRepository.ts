@@ -8,10 +8,6 @@ import Appointment from '../../infra/typeorm/entities/Appointment';
 class AppointmentsRepository implements IAppointmentsRepository {
   private appointments: Appointment[] = [];
 
-  public async find(): Promise<Appointment[] | undefined> {
-    return this.appointments;
-  }
-
   public async findByDate(date: Date): Promise<Appointment | undefined> {
     const findAppointment = this.appointments.find(
       appointment => appointment.date === date,
@@ -26,7 +22,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = new Appointment();
 
-    Object.assign('appointment', { id: uuid(), date, provider_id });
+    Object.assign(appointment, { id: uuid(), date, provider_id });
 
     this.appointments.push(appointment);
 
