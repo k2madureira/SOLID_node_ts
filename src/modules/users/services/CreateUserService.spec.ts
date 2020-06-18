@@ -2,12 +2,12 @@
 
 import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import CreateUserervice from './CreateUserService';
+import CreateUserService from './CreateUserService';
 
 describe('CreateUser', () => {
   it('should be able to create a new User', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
-    const createUser = new CreateUserervice(fakeUsersRepository);
+    const createUser = new CreateUserService(fakeUsersRepository);
 
     const user = await createUser.execute({
       name: 'John Doe',
@@ -20,7 +20,7 @@ describe('CreateUser', () => {
 
   it('should not be able to create a new User with a repeated email', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
-    const createUser = new CreateUserervice(fakeUsersRepository);
+    const createUser = new CreateUserService(fakeUsersRepository);
 
     await createUser.execute({
       name: 'John Doe',
