@@ -1,10 +1,17 @@
+import handlebars from 'handlebars';
+
 import IMailTemplateProvider from '../models/IMailTemplateProvider';
 import IParseMailTemplateDTO from '../dtos/IParseMailTemplateDTO';
 
-class FakeMailTemplateProvider implements IMailTemplateProvider {
-  public async parse({ template }: IParseMailTemplateDTO): Promise<string> {
-    return template;
+class HandlebarsMailTemplateProvider implements IMailTemplateProvider {
+  public async parse({
+    template,
+    variables,
+  }: IParseMailTemplateDTO): Promise<string> {
+    const parseTemplate = handlebars.compile(template);
+
+    return parseTemplate(variables);
   }
 }
 
-export default FakeMailTemplateProvider;
+export default HandlebarsMailTemplateProvider;
