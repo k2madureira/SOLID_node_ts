@@ -8,7 +8,7 @@ import UpdateProfileService from './UpdateProfileService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
-let updateProfileService: UpdateProfileService;
+let updateProfile: UpdateProfileService;
 
 describe('UpdateProfile', () => {
   beforeEach(() => {
@@ -21,18 +21,20 @@ describe('UpdateProfile', () => {
     );
   });
 
-  it('should be able to create a new User', async () => {
+  it('should be able to update profile', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'jhon@exemple.com',
       password: '123',
     });
 
-    await updateUserAvatar.execute({
+    const updatedUser = await updateProfile.execute({
       user_id: user.id,
-      avatarFilename: 'avatar.jpg',
+      name: 'John Dummy',
+      email: 'john@dummy.com',
     });
 
-    expect(user.avatar).toBe('avatar.jpg');
+    expect(updatedUser.name).toBe('John Dummy');
+    expect(updatedUser.email).toBe('john@dummy.com');
   });
 });

@@ -1,10 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import IHashprovider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
-// import User from '../infra/typeorm/entities/User';
+import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
   user_id: string;
@@ -24,7 +24,12 @@ export default class UpdateProfile {
     private hashProvider: IHashprovider,
   ) {}
 
-  public async execute({ user_id, name, email }: IRequest): Promise<void> {
+  public async execute({ user_id, name, email }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User not found');
+    }
     return user;
   }
 }
