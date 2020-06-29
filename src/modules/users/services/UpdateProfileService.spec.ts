@@ -15,7 +15,7 @@ describe('UpdateProfile', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
 
-    updateProfileService = new UpdateProfileService(
+    updateProfile = new UpdateProfileService(
       fakeUsersRepository,
       fakeHashProvider,
     );
